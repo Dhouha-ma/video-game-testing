@@ -6,11 +6,12 @@ import {
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
 import * as Rx from 'rxjs';
-import { HttpService } from 'src/app/services/http.service';
-
-import { HomeComponent } from './home.component';
 import { delay } from 'rxjs/operators';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+import { HttpService } from 'src/app/services/http.service';
+import { HomeComponent } from './home.component';
+import { of } from 'rxjs';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -24,7 +25,12 @@ describe('HomeComponent', () => {
       imports: [HttpClientTestingModule],
       providers: [
         HttpService,
-        { provide: ActivatedRoute, useValue: activatedRouteMock }
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            params: of({ id: 123 }),
+          },
+        },
       ],
     }).compileComponents();
   });
@@ -37,29 +43,29 @@ describe('HomeComponent', () => {
     service = fixture.debugElement.injector.get(HttpService);
   });
 
-  // describe('searchGames', function () {
-  //   it('should get games list', fakeAsync(() => {
-  //     let list = {
-  //       results: [
-  //         {
-  //           background_image: 'string',
-  //           name: 'Grand Theft Auto V',
-  //           released: '2013-09-17',
-  //           metacritic_url: 'string',
-  //           website: 'string',
-  //           description: 'string',
-  //           metacritic: 94,
-  //         },
-  //       ],
-  //     };
+  describe('searchGames', function () {
+    it('should get games list', fakeAsync(() => {
+      let list = {
+        results: [
+          {
+            background_image: 'string',
+            name: 'Grand Theft Auto V',
+            released: '2013-09-17',
+            metacritic_url: 'string',
+            website: 'string',
+            description: 'string',
+            metacritic: 94,
+          },
+        ],
+      };
 
-  //     let spyGetGameList = spyOn(service, 'getGameList').and.callFake(() => {
-  //       return Rx.of(list.results).pipe(delay(1000));
-  //     });
+      let spyGetGameList = spyOn(service, 'getGameList').and.callFake(() => {
+        return Rx.of(list).pipe(delay(1000));
+      });
 
-  //     component.searchGames('metacrit');
-  //     tick(1000);
-  //     expect(component.games).toEqual(list.results);
-  //   }));
-  // });
+      component.searchGames('metacrit');
+      tick(1000);
+      expect(component.games).toEqual(list.results);
+    }));
+  });
 });
