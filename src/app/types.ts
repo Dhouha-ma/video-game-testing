@@ -6,12 +6,12 @@ export interface Game {
   website: string;
   description: string;
   metacritic: number;
-  genres: Array<Genre>;
-  parent_platforms: Array<ParentPlatform>;
-  publishers: Array<Publishers>;
-  ratings: Array<Rating>;
-  screenshots: Array<Screenshots>;
-  trailers: Array<Trailer>;
+  genres?: Array<Genre>;
+  parent_platforms?: Array<ParentPlatform>;
+  publishers?: Array<Publishers>;
+  ratings?: Array<Rating>;
+  screenshots?: Array<Screenshots>;
+  trailers?: Array<Trailer>;
 }
 
 export interface APIResponse<T> {
