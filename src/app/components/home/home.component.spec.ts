@@ -8,16 +8,16 @@ import { ActivatedRoute } from '@angular/router';
 import * as Rx from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BehaviorSubject } from 'rxjs';
 
 import { HttpService } from 'src/app/services/http.service';
 import { HomeComponent } from './home.component';
-import { of } from 'rxjs';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  let activatedRouteMock = { navigate: jasmine.createSpy('params') };
-  let service;
+  let service: HttpService;
+  const paramsSubject = new BehaviorSubject({});
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -28,7 +28,7 @@ describe('HomeComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            params: of({ id: 123 }),
+            params: paramsSubject,
           },
         },
       ],
@@ -41,6 +41,25 @@ describe('HomeComponent', () => {
     fixture.detectChanges();
 
     service = fixture.debugElement.injector.get(HttpService);
+  });
+
+  describe('ngOnInit', () => {
+    it('should call searchGames with default params metacrit', fakeAsync(() => {
+      const spy = spyOn(component, 'searchGames').and.callThrough();
+
+      component.ngOnInit();
+      tick();
+      expect(spy).toHaveBeenCalledWith('metacrit');
+    }));
+
+    // it('should call searchGames with default params metacrit and search term', fakeAsync(() => {
+    //   const spy = spyOn(component, 'searchGames').and.callThrough();
+    //   paramsSubject.next({ id1: 1});
+
+    //   component.ngOnInit();
+    //   tick();
+    //   expect(spy).toHaveBeenCalledWith('metacrit', 'game');
+    // }));
   });
 
   describe('searchGames', function () {

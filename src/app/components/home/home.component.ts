@@ -32,7 +32,7 @@ export class HomeComponent implements OnInit {
       .getGameList(sort, search)
       .subscribe((gameList: APIResponse<Game>) => {
         this.games = gameList.results;
-        console.log(gameList);
+        // console.log(gameList);
       });
   }
 }
