@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+
 import { HttpService } from 'src/app/services/http.service';
 import { APIResponse, Game } from 'src/app/types';
 
