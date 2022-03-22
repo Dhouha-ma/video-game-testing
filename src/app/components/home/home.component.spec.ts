@@ -47,6 +47,7 @@ describe('HomeComponent', () => {
     it('should call searchGames with default params metacrit', fakeAsync(() => {
       const spy = spyOn(component, 'searchGames').and.callThrough();
 
+      paramsSubject.next({});
       component.ngOnInit();
       tick();
 
@@ -57,7 +58,6 @@ describe('HomeComponent', () => {
       const spy = spyOn(component, 'searchGames').and.callThrough();
       
       paramsSubject.next({ 'game-search': 'game'});
-      tick();
       component.ngOnInit();
       tick();
 
@@ -87,7 +87,7 @@ describe('HomeComponent', () => {
 
       component.searchGames('metacrit');
       tick(1000);
-      
+
       expect(component.games).toEqual(list.results);
     }));
   });
