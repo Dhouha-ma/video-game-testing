@@ -49,17 +49,20 @@ describe('HomeComponent', () => {
 
       component.ngOnInit();
       tick();
+
       expect(spy).toHaveBeenCalledWith('metacrit');
     }));
 
-    // it('should call searchGames with default params metacrit and search term', fakeAsync(() => {
-    //   const spy = spyOn(component, 'searchGames').and.callThrough();
-    //   paramsSubject.next({ id1: 1});
+    it('should call searchGames with default params metacrit and search term', fakeAsync(() => {
+      const spy = spyOn(component, 'searchGames').and.callThrough();
+      
+      paramsSubject.next({ 'game-search': 'game'});
+      tick();
+      component.ngOnInit();
+      tick();
 
-    //   component.ngOnInit();
-    //   tick();
-    //   expect(spy).toHaveBeenCalledWith('metacrit', 'game');
-    // }));
+      expect(spy).toHaveBeenCalledWith('metacrit', 'game');
+    }));
   });
 
   describe('searchGames', function () {
@@ -84,6 +87,7 @@ describe('HomeComponent', () => {
 
       component.searchGames('metacrit');
       tick(1000);
+      
       expect(component.games).toEqual(list.results);
     }));
   });
