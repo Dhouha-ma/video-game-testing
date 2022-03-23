@@ -35,7 +35,7 @@ describe('SearchBarComponent', () => {
   });
 
   describe('onSubmit', () => {
-    it('should', () => {
+    it('should redirect to search page with search text', () => {
       const testForm = <NgForm> {
         value: {
             search: "Hello",

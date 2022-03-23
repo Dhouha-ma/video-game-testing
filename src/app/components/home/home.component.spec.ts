@@ -4,7 +4,7 @@ import {
   TestBed,
   tick,
 } from '@angular/core/testing';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as Rx from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -18,6 +18,7 @@ describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let service: HttpService;
   const paramsSubject = new BehaviorSubject({});
+  let routerSpy = {navigate: jasmine.createSpy('navigate')};
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -31,6 +32,7 @@ describe('HomeComponent', () => {
             params: paramsSubject,
           },
         },
+        { provide: Router, useValue: routerSpy }
       ],
     }).compileComponents();
   });
@@ -91,4 +93,14 @@ describe('HomeComponent', () => {
       expect(component.games).toEqual(list.results);
     }));
   });
+
+  describe('openGameDetails', () => {
+    it('should redirect to details page with game id', () => {
+      let gameId = "1";
+      component.openGameDetails(gameId);
+      
+      expect(routerSpy.navigate).toHaveBeenCalledWith([ 'details', '1' ]);
+    });
+  });
+  
 });
