@@ -18,7 +18,7 @@ describe('HomeComponent', () => {
   let fixture: ComponentFixture<HomeComponent>;
   let service: HttpService;
   const paramsSubject = new BehaviorSubject({});
-  let routerSpy = {navigate: jasmine.createSpy('navigate')};
+  let routerSpy = { navigate: jasmine.createSpy('navigate') };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -32,7 +32,7 @@ describe('HomeComponent', () => {
             params: paramsSubject,
           },
         },
-        { provide: Router, useValue: routerSpy }
+        { provide: Router, useValue: routerSpy },
       ],
     }).compileComponents();
   });
@@ -96,10 +96,10 @@ describe('HomeComponent', () => {
 
   describe('openGameDetails', () => {
     it('should redirect to details page with game id', () => {
-      let gameId = "1";
+      let gameId = '1';
       component.openGameDetails(gameId);
-      
-      expect(routerSpy.navigate).toHaveBeenCalledWith([ 'details', '1' ]);
+
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['details', '1']);
     });
   });
 
@@ -122,5 +122,4 @@ describe('HomeComponent', () => {
       expect(subscription).toHaveBeenCalledTimes(1);
     });
   });
-  
 });
