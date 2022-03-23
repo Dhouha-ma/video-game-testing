@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import * as Rx from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 
 import { HttpService } from 'src/app/services/http.service';
 import { HomeComponent } from './home.component';
@@ -100,6 +100,26 @@ describe('HomeComponent', () => {
       component.openGameDetails(gameId);
       
       expect(routerSpy.navigate).toHaveBeenCalledWith([ 'details', '1' ]);
+    });
+  });
+
+  describe('ngOnDestroy', () => {
+    it('should unsubscribe from gameSub', () => {
+      component.gameSub = new Subscription();
+      const subscription = spyOn(component.gameSub, 'unsubscribe');
+
+      component.ngOnDestroy();
+
+      expect(subscription).toHaveBeenCalledTimes(1);
+    });
+
+    it('should unsubscribe from routeSub', () => {
+      component.routeSub = new Subscription();
+      const subscription = spyOn(component.routeSub, 'unsubscribe');
+
+      component.ngOnDestroy();
+
+      expect(subscription).toHaveBeenCalledTimes(1);
     });
   });
   

@@ -13,8 +13,8 @@ import { APIResponse, Game } from 'src/app/types';
 export class HomeComponent implements OnInit, OnDestroy {
   public sort: string;
   public games: Array<Game>;
-  private routeSub: Subscription;
-  private gameSub: Subscription;
+  public routeSub: Subscription;
+  public gameSub: Subscription;
 
   constructor(
     private httpService: HttpService,
@@ -37,7 +37,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       .getGameList(sort, search)
       .subscribe((gameList: APIResponse<Game>) => {
         this.games = gameList.results;
-        console.log(gameList);
       });
   }
 
