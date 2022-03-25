@@ -1,4 +1,3 @@
-import { HttpClient, HttpHandler } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
   ComponentFixture,
@@ -9,9 +8,9 @@ import {
 import { ActivatedRoute } from '@angular/router';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
-import { HttpService } from 'src/app/services/http.service';
 import * as Rx from 'rxjs';
 
+import { HttpService } from 'src/app/services/http.service';
 import { DetailsComponent } from './details.component';
 
 describe('DetailsComponent', () => {

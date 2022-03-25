@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.scss'],
 })
-
 export class SearchBarComponent implements OnInit {
   constructor(private router: Router) {}
 

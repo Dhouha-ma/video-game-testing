@@ -7,21 +7,14 @@ import { SearchBarComponent } from './search-bar.component';
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
   let fixture: ComponentFixture<SearchBarComponent>;
-  let routerSpy = {navigate: jasmine.createSpy('navigate')};
+  let routerSpy = { navigate: jasmine.createSpy('navigate') };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        SearchBarComponent 
-      ],
-      providers: [
-        { provide: Router, useValue: routerSpy }
-      ],
-      imports: [ 
-        FormsModule
-      ]
-    })
-    .compileComponents();
+      declarations: [SearchBarComponent],
+      providers: [{ provide: Router, useValue: routerSpy }],
+      imports: [FormsModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -36,14 +29,13 @@ describe('SearchBarComponent', () => {
 
   describe('onSubmit', () => {
     it('should redirect to search page with search text', () => {
-      const testForm = <NgForm> {
+      const testForm = <NgForm>{
         value: {
-            search: "Hello",
-        }
-    };
+          search: 'Hello',
+        },
+      };
       component.onSubmit(testForm);
-      expect(routerSpy.navigate).toHaveBeenCalledWith([ 'search', 'Hello' ]);
+      expect(routerSpy.navigate).toHaveBeenCalledWith(['search', 'Hello']);
     });
   });
-  
 });

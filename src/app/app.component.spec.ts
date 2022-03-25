@@ -1,20 +1,15 @@
 import { TestBed } from '@angular/core/testing';
-import { AppComponent } from './app.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { FormsModule } from '@angular/forms';
+
+import { AppComponent } from './app.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [
-        AppComponent,
-        SearchBarComponent
-      ],
-      imports: [
-        RouterTestingModule,
-        FormsModule
-      ]
+      declarations: [AppComponent, SearchBarComponent],
+      imports: [RouterTestingModule, FormsModule],
     }).compileComponents();
   });
 
