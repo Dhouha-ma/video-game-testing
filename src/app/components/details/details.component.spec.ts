@@ -7,7 +7,7 @@ import {
   tick,
 } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import { HttpService } from 'src/app/services/http.service';
 import * as Rx from 'rxjs';
@@ -71,7 +71,7 @@ describe('DetailsComponent', () => {
   });
 
   describe('getGameDetails', function () {
-    it('should ', fakeAsync(() => {
+    it('should retunr game details', fakeAsync(() => {
       let game = {
         background_image: 'string',
         name: 'Grand Theft Auto V',
@@ -97,5 +97,25 @@ describe('DetailsComponent', () => {
       }, 1001);
       tick(1001);
     }));
+  });
+
+  describe('ngOnDestroy', () => {
+    it('should unsubscribe from gameSub', () => {
+      component.gameSub = new Subscription();
+      const subscription = spyOn(component.gameSub, 'unsubscribe');
+
+      component.ngOnDestroy();
+
+      expect(subscription).toHaveBeenCalledTimes(1);
+    });
+
+    it('should unsubscribe from routeSub', () => {
+      component.routeSub = new Subscription();
+      const subscription = spyOn(component.routeSub, 'unsubscribe');
+
+      component.ngOnDestroy();
+
+      expect(subscription).toHaveBeenCalledTimes(1);
+    });
   });
 });

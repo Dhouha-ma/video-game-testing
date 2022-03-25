@@ -52,7 +52,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     if (this.gameSub) {
       this.gameSub.unsubscribe();
     }
